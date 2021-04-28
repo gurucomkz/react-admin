@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 
 import { useAuthState } from '../Context';
+import AdminLayout from './AdminLayout';
 
 const AppRoutes = ({ component: Component, path, isPrivate, ...rest }) => {
 	const userDetails = useAuthState();
@@ -12,7 +13,9 @@ const AppRoutes = ({ component: Component, path, isPrivate, ...rest }) => {
 				isPrivate && !Boolean(userDetails.token) ? (
 					<Redirect to={{ pathname: '/login' }} />
 				) : (
-					<Component {...props} />
+					<AdminLayout>
+						<Component {...props} />
+					</AdminLayout>
 				)
 			}
 			{...rest}
