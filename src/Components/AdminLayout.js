@@ -9,6 +9,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import clsx from 'clsx';
 import { useDrawer } from '../Context';
+import AdminTopMenu from './AdminTopMenu';
 
 const AdminLayout = ({ children }) => {
 	const classes = useStyles();
@@ -31,9 +32,7 @@ const AdminLayout = ({ children }) => {
 					>
 						<MenuIcon />
 					</IconButton>
-					<Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-						Dashboard
-					</Typography>
+					<AdminTopMenu />
 					<IconButton color="inherit">
 						<Badge badgeContent={4} color="secondary">
 							<NotificationsIcon />
