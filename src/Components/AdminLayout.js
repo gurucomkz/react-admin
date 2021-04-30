@@ -1,5 +1,5 @@
 import React from 'react';
-import Grid from '@material-ui/core/Grid';
+// import Grid from '@material-ui/core/Grid';
 
 import AdminLeftMenu from './AdminLeftMenu';
 import { AppBar, Badge, Container, CssBaseline, IconButton, Toolbar, Typography } from '@material-ui/core';
@@ -8,12 +8,11 @@ import { useStyles } from '../Config/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import clsx from 'clsx';
-import { useDrawerDispatch, useDrawerState } from '../Context';
+import { useDrawer } from '../Context';
 
 const AdminLayout = ({ children }) => {
 	const classes = useStyles();
-	const open = useDrawerState();
-	const setOpen = useDrawerDispatch();
+	const [open, setOpen] = useDrawer();
 	const handleDrawerOpen = () => {
 		setOpen(true);
 	};

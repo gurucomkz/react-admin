@@ -1,10 +1,10 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 
-import { useAuthState } from '../Context';
+import { useAuth } from '../Context';
 
 const AppRoutes = ({ component: Component, path, isPrivate, ...rest }) => {
-	const userDetails = useAuthState();
+	const [userDetails] = useAuth();
 	return (
 		<Route
 			path={path}

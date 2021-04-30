@@ -2,8 +2,7 @@ import { Avatar, Button, Container, CssBaseline, makeStyles, TextField, Typograp
 import React, { useState } from 'react';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
-import { loginUser, useAuthState, useAuthDispatch } from '../../Context';
-import styles from './login.module.css';
+import { loginUser, useAuth } from '../../Context';
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -30,8 +29,8 @@ function Login(props) {
 	const [password, setPassword] = useState('');
 	const classes = useStyles();
 
-	const dispatch = useAuthDispatch();
-	const { loading, errorMessage } = useAuthState();
+	const [userState, dispatch] = useAuth();
+	const { loading, errorMessage } = userState;
 
 	const handleLogin = async (e) => {
 		e.preventDefault();

@@ -3,8 +3,10 @@ import { AuthProvider, useAuthDispatch, useAuthState } from './auth';
 import { DrawerProvider, useDrawerDispatch, useDrawerState } from './drawer';
 import AppProviders from './providers';
 
-export { AuthProvider, useAuthState, useAuthDispatch, loginUser, logout };
+const useAuth = () => [ useAuthState(), useAuthDispatch() ];
+export { AuthProvider, useAuth, loginUser, logout };
 
-export { DrawerProvider, useDrawerState, useDrawerDispatch };
+const useDrawer = () => [ useDrawerState(), useDrawerDispatch() ];
+export { DrawerProvider, useDrawer };
 
 export { AppProviders };

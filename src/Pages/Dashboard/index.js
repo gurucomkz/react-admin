@@ -1,10 +1,9 @@
 import React from 'react';
-import { useAuthDispatch, logout, useAuthState } from '../../Context';
+import { logout, useAuth } from '../../Context';
 import styles from './dashboard.module.css';
 
 function Dashboard(props) {
-	const dispatch = useAuthDispatch();
-	const userDetails = useAuthState();
+	const [userDetails, dispatch] = useAuth();
 
 	const handleLogout = () => {
 		logout(dispatch);

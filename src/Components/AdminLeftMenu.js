@@ -2,13 +2,12 @@ import { Divider, Drawer, IconButton, List } from '@material-ui/core';
 import clsx from 'clsx';
 import React from 'react';
 import { useStyles } from '../Config/styles';
-import { useDrawerDispatch, useDrawerState } from '../Context';
+import { useDrawer } from '../Context';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
 const AdminLeftMenu = ({ children }) => {
 	const classes = useStyles();
-	const open = useDrawerState();
-	const setOpen = useDrawerDispatch();
+	const [open, setOpen] = useDrawer();
 
 	const handleDrawerClose = () => {
 		setOpen(false);
