@@ -1,6 +1,6 @@
 import MenuGroups from '../Config/MenuGroups';
 
-export const initialState = 'MENU_MAIN';
+export const initialState = MenuGroups.MENU_MAIN;
 
 
 export const MenuGroupReducer = (initialState, newValue) => {

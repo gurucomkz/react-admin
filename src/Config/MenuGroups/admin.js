@@ -1,3 +1,4 @@
+import React from 'react';
 import TodayIcon from '@material-ui/icons/Today';
 import SettingsIcon from '@material-ui/icons/Settings';
 import LocalAtmIcon from '@material-ui/icons/LocalAtm';
@@ -7,7 +8,7 @@ const MENU_ADMIN = {
     items: [
         {
             name: 'Month End',
-            icon: TodayIcon,
+            icon: <TodayIcon />,
             items: [
                 {
                     name: 'Monthly payouts',
@@ -48,7 +49,7 @@ const MENU_ADMIN = {
         },
         {
             name: 'System Management',
-            icon: SettingsIcon,
+            icon: <SettingsIcon />,
             items: [
                 {
                     name: 'Accounts',
@@ -208,7 +209,7 @@ const MENU_ADMIN = {
         },
         {
             name: 'Xero',
-            icon: LocalAtmIcon,
+            icon: <LocalAtmIcon />,
             items: [
                 {
                     name: 'Bookings',

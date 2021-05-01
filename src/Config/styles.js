@@ -79,4 +79,12 @@ export const useStyles = makeStyles((theme) => ({
     fixedHeight: {
       height: 240,
     },
+    LMroot: {
+      width: '100%',
+      maxWidth: 360,
+      backgroundColor: theme.palette.background.paper,
+    },
+    LMnested: {
+      paddingLeft: theme.spacing(4),
+    },
 }));

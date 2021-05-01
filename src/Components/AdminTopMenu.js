@@ -7,16 +7,16 @@ const AdminTopMenu = () => {
 	const groupcodes = Object.keys(MenuGroups);
 	const [ group, setGroup ] = useMenuGroups();
 
-	return (
-		<div>
-			{groupcodes.map((gc) => (
-				<Button
-					variant="contained"
-					color="secondary"
-					onClick={setGroup(gc)} 
-				>{MenuGroups[gc].name}</Button>
-			))}
-		</div>
+	return groupcodes.map((gc, i) => (
+			<Button
+				key={i}
+				variant="contained"
+				color="secondary"
+				onClick={()=>setGroup(gc)} 
+			>
+				{MenuGroups[gc].name}
+			</Button>
+		)
 	);
 };
 

@@ -1,3 +1,6 @@
+import React from 'react';
+import SwapHorizontalCircleIcon from '@material-ui/icons/SwapHorizontalCircle';
+
 const MENU_SERVICING = {
     name: 'Servicing',
     items: [
@@ -89,7 +92,7 @@ const MENU_SERVICING = {
 
         {
             name: 'Items for Loan',
-            icon: 'fa-tasks',
+            icon: <SwapHorizontalCircleIcon />,
             items: [
                 {
                     name: 'Items',

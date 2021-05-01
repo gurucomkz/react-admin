@@ -1,3 +1,4 @@
+import React from 'react';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import PaymentIcon from '@material-ui/icons/Payment';
 
@@ -6,7 +7,7 @@ const MENU_MAIN = {
     items: [
         {
             name: 'Bookings',
-            icon: DateRangeIcon,
+            icon: <DateRangeIcon />,
             items: [
                 {
                     name: 'Overview',
@@ -61,7 +62,7 @@ const MENU_MAIN = {
         },
         {
             name: 'Transactions',
-            icon: PaymentIcon,
+            icon: <PaymentIcon />,
             items: [
                 {
                     name: 'All Transactions',
