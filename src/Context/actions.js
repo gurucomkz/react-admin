@@ -1,15 +1,27 @@
 const ROOT_URL = 'http://hhh55.test/adminapi';
 
 export async function request(subUrl, payload, method) {
-	const requestOptions = {
+	let token = localStorage.getItem('currentUser')
+		? JSON.parse(localStorage.getItem('currentUser')).auth_token
+		: '';
+		
+	var requestOptions = {
 		method: method || 'POST',
 		headers: { 
 			'Content-Type': 'application/json',
 			'X-Requested-With': 'XMLHttpRequest',
+			'Authorization': 'Bearer ' + token,
 		},
-		body: JSON.stringify(payload),
+		body: payload ? JSON.stringify(payload) : null
 	};
 
+	if (payload) {
+		if (method == 'GET') {
+			subUrl += '?' + new URLSearchParams(payload).toString();
+		} else {
+			requestOptions.body = JSON.stringify(payload);
+		}
+	}
 	let response = await fetch(`${ROOT_URL}/${subUrl}`, requestOptions);
 	let data = await response.json();
 

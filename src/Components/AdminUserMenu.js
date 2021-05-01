@@ -1,11 +1,13 @@
 import { Button, ClickAwayListener, Grow, MenuItem, MenuList, Paper, Popper } from '@material-ui/core';
 import React from 'react';
+import { useHistory } from 'react-router';
 import { logout, useAuth } from '../Context';
 
 const AdminTopMenu = (props) => {
     const [userState, dispatch] = useAuth();
     const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef(null);
+    const history = useHistory();
 
     const handleToggle = () => {
         setOpen((prevOpen) => !prevOpen);
@@ -26,7 +28,7 @@ const AdminTopMenu = (props) => {
     const handleLogout = () => {
         setOpen(false);
 		logout(dispatch);
-		props.history.push('/login');
+		history.push('/login');
 	};
     if(!userState.token) {
         return null;
