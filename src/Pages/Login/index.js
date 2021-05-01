@@ -54,6 +54,11 @@ function Login(props) {
 				<Typography component="h1" variant="h5">
 					Sign in
 				</Typography>
+				{ !errorMessage ? null : (
+					<Typography component="h6">
+						{errorMessage}
+					</Typography>
+				) }
 				<form className={classes.form} noValidate>
 					<TextField
 						variant="outlined"

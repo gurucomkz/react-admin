@@ -7,48 +7,7 @@ const MENU_ADMIN = {
     name: 'Admin',
     items: [
         {
-            name: 'Month End',
-            icon: <TodayIcon />,
-            items: [
-                {
-                    name: 'Monthly payouts',
-                    path: '/monthend/payouts',
-                    perm: [
-                        'admin.monthend.payouts'
-                    ],
-                },
-                {
-                    name: 'File covers',
-                    path: '/monthend/covers',
-                    perm: [
-                        'admin.monthend.covers'
-                    ],
-                },
-                {
-                    name: 'Interconnect OI/CO',
-                    path: '/xero/interconnect',
-                    perm: [
-                        'admin.xero.interconnect'
-                    ],
-                },
-                {
-                    name: 'Gen MS Invoice',
-                    path: '/xero/genmsinvoice',
-                    perm: [
-                        'admin.xero.genmsinvoice'
-                    ],
-                },
-                {
-                    name: 'Allocate MS Invoices',
-                    path: '/xero/allocmsinvoice',
-                    perm: [
-                        'admin.xero.allocmsinvoice'
-                    ],
-                },
-            ],
-        },
-        {
-            name: 'System Management',
+            name: 'Dictionaries',
             icon: <SettingsIcon />,
             items: [
                 {
@@ -93,13 +52,7 @@ const MENU_ADMIN = {
                         'admin.invoices.index',
                     ],
                 },
-                {
-                    name: 'Vouchers',
-                    path: '/vouchers/index',
-                    perm: [
-                        'admin.vouchers.index',
-                    ],
-                },
+                
                 {
                     name: 'Owners',
                     path: '/owners',
@@ -178,6 +131,13 @@ const MENU_ADMIN = {
                     ],
                 },
                 {
+                    name: 'Vouchers',
+                    path: '/vouchers/index',
+                    perm: [
+                        'admin.vouchers.index',
+                    ],
+                },
+                {
                     name: 'VIP/Blacklist',
                     path: '/vipblacklists',
                     perm: [
@@ -203,6 +163,47 @@ const MENU_ADMIN = {
                     path: '/cache',
                     perm: [
                         'admin.cache.index',
+                    ],
+                },
+            ],
+        },
+        {
+            name: 'Month End',
+            icon: <TodayIcon />,
+            items: [
+                {
+                    name: 'Monthly payouts',
+                    path: '/monthend/payouts',
+                    perm: [
+                        'admin.monthend.payouts'
+                    ],
+                },
+                {
+                    name: 'File covers',
+                    path: '/monthend/covers',
+                    perm: [
+                        'admin.monthend.covers'
+                    ],
+                },
+                {
+                    name: 'Interconnect OI/CO',
+                    path: '/xero/interconnect',
+                    perm: [
+                        'admin.xero.interconnect'
+                    ],
+                },
+                {
+                    name: 'Gen MS Invoice',
+                    path: '/xero/genmsinvoice',
+                    perm: [
+                        'admin.xero.genmsinvoice'
+                    ],
+                },
+                {
+                    name: 'Allocate MS Invoices',
+                    path: '/xero/allocmsinvoice',
+                    perm: [
+                        'admin.xero.allocmsinvoice'
                     ],
                 },
             ],

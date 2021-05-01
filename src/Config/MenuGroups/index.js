@@ -4,7 +4,13 @@ import MENU_REPORTS from './reports';
 import MENU_SERVICING from './servicing';
 import MENU_MAINTENANCE from './maintenance';
 
+const DASHBOARD = {
+	name: 'Dashboard',
+    path: '/dashboard',
+};
+
 const MenuGroups = {
+	DASHBOARD,
 	MENU_MAIN,
 	MENU_REPORTS,
 	MENU_SERVICING,

@@ -6,11 +6,13 @@ import { useDrawer, useMenuGroups } from '../Context';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import PagesIcon from '@material-ui/icons/Pages';
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
+import { useHistory } from 'react-router-dom';
 
 const AdminLeftMenu = () => {
 	const classes = useStyles();
 	const [open, setDrawerOpen] = useDrawer();
 	const [ group ] = useMenuGroups();
+	const history = useHistory();
 
 	const handleDrawerClose = () => {
 		setDrawerOpen(false);
@@ -25,11 +27,14 @@ const AdminLeftMenu = () => {
 	}
 	
 	const renderSubMenuItem = (li, key, pos) => {
+		const handleClick = (subli) => {
+			history.push(subli.path);
+		};
 		return (
 			<Collapse in={itemsOpen[pos]} timeout="auto" unmountOnExit key={key}>
 				<List component="div" disablePadding>
 					{li.items.map((subli, subkey) => (
-						<ListItem button className={classes.LMnested} key={key + '.' + subkey}>
+						<ListItem button className={classes.LMnested} key={key + '.' + subkey} onClick={()=>handleClick(subli)}>
 							<ListItemIcon>
 								<PagesIcon />
 							</ListItemIcon>
@@ -45,7 +50,7 @@ const AdminLeftMenu = () => {
 			if(li.items) {
 				doOpen(pos, !itemsOpen[pos]);
 			} else {
-				window.location = li.path;
+				history.push(li.path);
 			}
 		};
 		return (
@@ -62,7 +67,7 @@ const AdminLeftMenu = () => {
 	};
 	const renderList = () => {
 		var items = [];
-		group.items.map((li, pos) => {
+		group.items.forEach((li, pos) => {
 			items.push(renderMenuItem(li, items.length, pos));
 			if(li.items){
 				items.push(renderSubMenuItem(li, items.length, pos));
