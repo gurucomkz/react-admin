@@ -10,6 +10,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import clsx from 'clsx';
 import { useDrawer } from '../Context';
 import AdminTopMenu from './AdminTopMenu';
+import AdminUserMenu from './AdminUserMenu';
 
 const AdminLayout = ({ children }) => {
 	const classes = useStyles();
@@ -38,6 +39,7 @@ const AdminLayout = ({ children }) => {
 							<NotificationsIcon />
 						</Badge>
 					</IconButton>
+					<AdminUserMenu />
 				</Toolbar>
 			</AppBar>
 			<AdminLeftMenu />
