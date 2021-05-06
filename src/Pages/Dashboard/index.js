@@ -2,6 +2,7 @@ import { Badge, Card, CardContent, Grid, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { request } from '../../Context/actions';
+import DashboardBookingsTable from './DashboardBookingsTable';
 
 function Dashboard(props) {
 	const history = useHistory();
@@ -19,6 +20,7 @@ function Dashboard(props) {
 				setWidgets(result);
 			},
 			(error) => {
+				console.log(error);
 				setIsLoaded(true);
 				setWidgets([]);
 				setError(error);
@@ -39,12 +41,12 @@ function Dashboard(props) {
 		}
 		return (
 			<Grid container spacing={3}>
-				{widgets.map((w) => {
+				{widgets.map((w, wi) => {
 					const comments = 'string' === typeof w.comment ? [w.comment] : w.comment;
 
 					return (
-						<Grid item xs={2 * w.size}>
-							<Card button onClick={()=>widgetClick(w)}>
+						<Grid item xs={2 * w.size} key={wi}>
+							<Card onClick={()=>widgetClick(w)}>
 								<CardContent>
 									<Badge badgeContent={w.counter} color="secondary" valiant="h3" invisible={!w.counter}>
 										<Typography color="textPrimary" gutterBottom>
@@ -52,8 +54,8 @@ function Dashboard(props) {
 										</Typography>
 									</Badge>
 									
-									{comments.map((text) =>(
-										<Typography color="textSecondary" valiant="subtitle2" gutterBottom>
+									{comments.map((text, i) =>(
+										<Typography color="textSecondary" valiant="subtitle2" gutterBottom key={i}>
 											{text}	
 										</Typography>
 									))}
@@ -68,6 +70,7 @@ function Dashboard(props) {
 	return (
 		<div style={{flexGrow: 1}}>
 			<Grid
+				container
 				direction="row"
 				justify="center"
 				alignItems="center"
@@ -78,6 +81,23 @@ function Dashboard(props) {
 					{renderWidgets()}
 				</div>
 			</Grid>
+			
+			<DashboardBookingsTable 
+				title="Today's Arrivals" 
+				endpoint="dashboard/arrivals" 
+				cbColName="Arrived?" 
+				cbAction="arrived" 
+				dateColName="ETA" 
+				dateColField="eta" 
+				/>
+			{/* <DashboardBookingsTable 
+				title="Today's Departured"
+				endpoint="dashboard/departures"  
+				cbColName="Departed?" 
+				cbAction="departed" 
+				dateColName="ETD" 
+				dateColField="etd" 
+				/> */}
 		</div>
 	);
 }

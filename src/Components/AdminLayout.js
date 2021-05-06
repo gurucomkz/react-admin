@@ -45,9 +45,9 @@ const AdminLayout = ({ children }) => {
 			<AdminLeftMenu />
 			<main className={classes.content}>
 				<div className={classes.appBarSpacer} />
-				<Container maxWidth="xl">
+				<div className={classes.mainContainer}>
 					{children}
-				</Container>
+				</div>
 			</main>
 		</div>
 		

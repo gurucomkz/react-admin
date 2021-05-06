@@ -1,6 +1,6 @@
 const ROOT_URL = 'http://hhh55.test/adminapi';
 
-export async function request(subUrl, payload, method) {
+export function request(subUrl, payload, method, plainResult) {
 	let token = localStorage.getItem('currentUser')
 		? JSON.parse(localStorage.getItem('currentUser')).auth_token
 		: '';
@@ -12,20 +12,25 @@ export async function request(subUrl, payload, method) {
 			'X-Requested-With': 'XMLHttpRequest',
 			'Authorization': 'Bearer ' + token,
 		},
-		body: payload ? JSON.stringify(payload) : null
 	};
 
 	if (payload) {
-		if (method == 'GET') {
+		if (method === 'GET') {
 			subUrl += '?' + new URLSearchParams(payload).toString();
 		} else {
 			requestOptions.body = JSON.stringify(payload);
 		}
 	}
-	let response = await fetch(`${ROOT_URL}/${subUrl}`, requestOptions);
-	let data = await response.json();
-
-	return data;
+	return fetch(`${ROOT_URL}/${subUrl}`, requestOptions)
+		.then(async (response) => {
+			if(!response.ok) {
+				const txt = await response.text();
+				const err = txt ? txt.substr(0,100) : response.statusText;
+				return Promise.reject(err);
+			}
+			return response;
+		})
+		.then((response) => plainResult ? response.text() : response.json());
 }
 
 export async function loginUser(dispatch, loginPayload) {

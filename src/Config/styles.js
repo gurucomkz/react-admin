@@ -6,6 +6,13 @@ export const useStyles = makeStyles((theme) => ({
     root: {
       display: 'flex',
     },
+    mainContainer: {
+      width: '100%',
+      display: 'block',
+      boxSizing: 'border-box',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+    },
     toolbar: {
       paddingRight: 24, // keep right padding when drawer closed
     },

@@ -28,7 +28,7 @@ const AdminTopMenu = () => {
 					key={i}
 					size="large"
 					variant="contained"
-					color="default"
+					color={MenuGroups[gc] === group ? 'secondary' : 'default'}
 					disableElevation
 					onClick={()=>handleClick(gc)} 
 				>
