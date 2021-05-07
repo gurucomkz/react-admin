@@ -1,10 +1,9 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useStyles } from '../../Config/styles';
+import React, { useCallback, useRef, useState } from 'react';
 import { request } from '../../Context/actions';
 import Table from '../Table';
+import QuickView from '../QuickView';
 
 function CRUDIndex({schema, endpoint, props}) {
-    const styles = useStyles();
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const [pageCount, setPageCount] = useState(0);
@@ -12,12 +11,26 @@ function CRUDIndex({schema, endpoint, props}) {
     const fetchIdRef = useRef(0);
 
     const {summary} = schema;
-
+    const getCellRenderer = (f) => {
+        return ({row}) => {
+            const val = row.original[f];
+            if(null===val) return null;
+            if('object' === typeof val) {
+                return (
+                    <QuickView object={val} />
+                )
+            }
+            return (
+                <>{val}</>
+            )
+        };
+    }
     var columns = [];
     for(var f in summary) {
         columns.push({
             Header: summary[f],
-            accessor: f
+            id: f,
+            Cell: getCellRenderer(f)
         });
     }
 
@@ -53,7 +66,7 @@ function CRUDIndex({schema, endpoint, props}) {
             data={items}
             fetchData={loadRows}
             columns={columns}
-            loading={!loading}
+            loading={loading}
             manualPagination={true}
             className="crud"
             pageCount={pageCount}

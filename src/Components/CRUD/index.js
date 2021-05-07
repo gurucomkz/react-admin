@@ -23,7 +23,7 @@ function CRUD({endpoint, ...props}) {
             component: CRUDEdit,
         },
         {
-            path: '/' + endpoint + '/index',
+            path: '/' + endpoint,
             component: CRUDIndex,
         },
     ];
@@ -47,6 +47,7 @@ function CRUD({endpoint, ...props}) {
                 <Route
                     key={route.path}
                     path={route.path}
+                    exact
                     render={(props) => (
                         <route.component {...props} endpoint={endpoint} schema={schema} />
                     )}

@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { useTable, usePagination } from 'react-table'
+import LoadingRow from './LoadingRow';
 import TablePagination from './TablePagination';
 import TableStyles from './TableStyles';
 
@@ -62,6 +63,35 @@ function Table({
         }
     }, [fetchData, pageIndex, pageSize])
 
+    const renderPage = () => {
+        if (loading) {
+            var a = [];
+            for(var r=0; r < pageSize; r++) {
+                a.push(
+                    <LoadingRow colSpan={columns.length} key={r} />
+                );
+            }
+            return a;
+        }
+        return page.map((row, i) => {
+            prepareRow(row)
+            return (
+                <tr {...row.getRowProps()}>
+                    {row.cells.map(cell => {
+                        return (
+                            <td
+                                {...cell.getCellProps({
+                                    className: cell.column.collapse ? 'collapse' : '',
+                                })}
+                            >
+                                {cell.render('Cell')}
+                            </td>
+                        )
+                    })}
+                </tr>
+            )
+        })
+    }
     return (
         <TableStyles>
             <div className={"tableWrap " + className}>
@@ -83,24 +113,7 @@ function Table({
                             ))}
                         </thead>
                         <tbody {...getTableBodyProps()}>
-                            {page.map((row, i) => {
-                                prepareRow(row)
-                                return (
-                                    <tr {...row.getRowProps()}>
-                                        {row.cells.map(cell => {
-                                            return (
-                                                <td
-                                                    {...cell.getCellProps({
-                                                        className: cell.column.collapse ? 'collapse' : '',
-                                                    })}
-                                                >
-                                                    {cell.render('Cell')}
-                                                </td>
-                                            )
-                                        })}
-                                    </tr>
-                                )
-                            })}
+                            {renderPage()}
                         </tbody>
                     </table>
                 </div>
