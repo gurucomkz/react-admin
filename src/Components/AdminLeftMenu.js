@@ -6,13 +6,14 @@ import { useDrawer, useMenuGroups } from '../Context';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import PagesIcon from '@material-ui/icons/Pages';
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 const AdminLeftMenu = () => {
 	const classes = useStyles();
 	const [open, setDrawerOpen] = useDrawer();
 	const [ group ] = useMenuGroups();
 	const history = useHistory();
+    const location = useLocation();
 
 	const handleDrawerClose = () => {
 		setDrawerOpen(false);
@@ -32,15 +33,18 @@ const AdminLeftMenu = () => {
 		};
 		return (
 			<Collapse in={itemsOpen[pos]} timeout="auto" unmountOnExit key={key}>
-				<List component="div" disablePadding>
-					{li.items.map((subli, subkey) => (
-						<ListItem button className={classes.LMnested} key={key + '.' + subkey} onClick={()=>handleClick(subli)}>
-							<ListItemIcon>
-								<PagesIcon />
-							</ListItemIcon>
-							<ListItemText primary={subli.name} />
-						</ListItem>
-					))}
+				<List component="div" disablePadding dense={true}>
+					{li.items.map((subli, subkey) => {
+                        const selected = location.pathname.indexOf(subli.path) === 0;
+                        return (
+                            <ListItem button selected={selected} className={classes.LMnested} key={key + '.' + subkey} onClick={()=>handleClick(subli)}>
+                                <ListItemIcon>
+                                    <PagesIcon fontSize="small" />
+                                </ListItemIcon>
+                                <ListItemText primary={subli.name} />
+                            </ListItem>
+                        );
+                    })}
 				</List>
 			</Collapse>
 		)
