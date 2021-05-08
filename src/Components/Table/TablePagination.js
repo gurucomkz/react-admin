@@ -1,3 +1,8 @@
+import { Button, ButtonGroup } from '@material-ui/core';
+import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
+import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
+import LastPageIcon from '@material-ui/icons/LastPage';
+import FirstPageIcon from '@material-ui/icons/FirstPage';
 import React from 'react';
 
 function TablePagination(props) {
@@ -15,18 +20,20 @@ function TablePagination(props) {
     } = props;
     return (
         <div className="pagination">
-            <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-            {'<<'}
-            </button>{' '}
-            <button onClick={() => previousPage()} disabled={!canPreviousPage}>
-            {'<'}
-            </button>{' '}
-            <button onClick={() => nextPage()} disabled={!canNextPage}>
-            {'>'}
-            </button>{' '}
-            <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
-            {'>>'}
-            </button>{' '}
+            <ButtonGroup size="small" color="primary" aria-label="outlined primary button group">
+                <Button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+                    <FirstPageIcon fontSize="small" />
+                </Button>
+                <Button onClick={() => previousPage()} disabled={!canPreviousPage}>
+                    <KeyboardArrowLeftIcon fontSize="small" />
+                </Button>
+                <Button onClick={() => nextPage()} disabled={!canNextPage}>
+                    <KeyboardArrowRightIcon fontSize="small" />
+                </Button>
+                <Button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
+                    <LastPageIcon fontSize="small" />
+                </Button>
+            </ButtonGroup>
             <span>
                 Page{' '}
                 <strong>
