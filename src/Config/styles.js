@@ -51,6 +51,7 @@ export const useStyles = makeStyles((theme) => ({
       flexGrow: 1,
     },
     drawerPaper: {
+      maxHeight: '100vh',
       position: 'relative',
       whiteSpace: 'nowrap',
       width: drawerWidth,
