@@ -1,38 +1,55 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { request } from '../../Context/actions';
 import Table from '../Table';
 import QuickView from '../QuickView';
+import RowActions from './Utls/RowActions';
+import { useHistory } from 'react-router';
 
 function CRUDIndex({schema, endpoint, props}) {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const [pageCount, setPageCount] = useState(0);
+    const [columns, setColumns] = useState([]);
     const [items, setItems] = useState([]);
     const fetchIdRef = useRef(0);
+    const history = useHistory();
 
-    const {summary} = schema;
-    const getCellRenderer = (f) => {
-        return ({row}) => {
-            const val = row.original[f];
-            if(null===val) return null;
-            if('object' === typeof val) {
+    useEffect(() => {
+        const {summary, actions} = schema;
+        var _columns = [];
+
+        const getCellRenderer = (f) => {
+            return ({row}) => {
+                const val = row.original[f];
+                if(null===val) return null;
+                if('object' === typeof val) {
+                    return (
+                        <QuickView object={val} />
+                    )
+                }
                 return (
-                    <QuickView object={val} />
+                    <>{val}</>
                 )
-            }
-            return (
-                <>{val}</>
-            )
-        };
-    }
-    var columns = [];
-    for(var f in summary) {
-        columns.push({
-            Header: summary[f],
-            id: f,
-            Cell: getCellRenderer(f)
-        });
-    }
+            };
+        }
+        for(var f in summary) {
+            _columns.push({
+                Header: summary[f],
+                id: f,
+                Cell: getCellRenderer(f)
+            });
+        }
+        if(actions && actions.length){
+            _columns.push({
+                Header: '',
+                id: 'row_actions',
+                Cell: (row) => (
+                    <RowActions row={row} endpoint={endpoint} actions={schema.actions} />
+                )
+            });
+        }
+        setColumns(_columns);
+    },[schema, endpoint]);
 
     const loadRows = useCallback(({ pageSize, pageIndex }) => {
         setLoading(true);
@@ -60,6 +77,10 @@ function CRUDIndex({schema, endpoint, props}) {
             }
         )
     }, []);
+
+    const onRowClick = (row) => {
+        history.push(endpoint + '/view/' + row.original.id);
+    }
     
     return (
         <Table
@@ -70,6 +91,7 @@ function CRUDIndex({schema, endpoint, props}) {
             manualPagination={true}
             className="crud"
             pageCount={pageCount}
+            onRowClick={onRowClick}
         />
     );
 }

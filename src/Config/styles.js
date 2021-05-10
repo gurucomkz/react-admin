@@ -8,6 +8,7 @@ export const useStyles = makeStyles((theme) => ({
     },
     mainContainer: {
       width: '100%',
+      height: '100%',
       display: 'block',
       boxSizing: 'border-box',
       marginLeft: 'auto',
@@ -73,13 +74,23 @@ export const useStyles = makeStyles((theme) => ({
     },
     appBarSpacer: theme.mixins.toolbar,
     content: {
+    //   display: 'flex',
       flexGrow: 1,
-      height: '100vh',
+      marginTop: '56px',
+      height: 'calc(100vh - 56px)',
       overflow: 'auto',
+      [theme.breakpoints.up('sm')]: {
+        height: 'calc(100vh - 48px)',
+        marginTop: '48px',
+      },
+      [theme.breakpoints.up('md')]: {
+        height: 'calc(100vh - 64px)',
+        marginTop: '64px',
+      },
     },
     container: {
       paddingTop: theme.spacing(4),
-      paddingBottom: theme.spacing(4),
+    //   paddingBottom: theme.spacing(4),
     },
     paper: {
       padding: theme.spacing(2),

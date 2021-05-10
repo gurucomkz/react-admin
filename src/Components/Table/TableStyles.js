@@ -3,7 +3,6 @@ import styled from 'styled-components'
 const TableStyles = styled.div`
   .crud {
     display: flex;
-    height: 100%;
     
     height: calc(100vh - 56px);
     @media (min-width: 0px) and (orientation: landscape) {

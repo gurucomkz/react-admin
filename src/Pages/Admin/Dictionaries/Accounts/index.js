@@ -1,5 +1,5 @@
 import React from 'react';
-import { CRUD } from '../../Components';
+import { CRUD } from '../../../../Components';
 
 function Accounts() {
 	

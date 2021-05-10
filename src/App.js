@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import { Switch } from 'react-router-dom';
-import routes from './Config/routes.js';
+import routes from './Config/Routes';
 import { AppProviders } from './Context';
 import { AppRoute, ReactLoader, AdminLayout } from './Components';
 

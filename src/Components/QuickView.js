@@ -8,6 +8,13 @@ export default function QuickView({
     const {name} = object;
     const [open, setOpen] = useState(false);
     
+    const handleClick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setOpen(true);
+        return false;
+    }
+
     const renderDrawer = () => {
         if(!open) return null;
         return (
@@ -20,7 +27,7 @@ export default function QuickView({
                 variant="outlined"
                 color="primary"
                 size="small"
-                onClick={() => setOpen(true)}
+                onClick={handleClick}
             >
                 {name}
             </Button>

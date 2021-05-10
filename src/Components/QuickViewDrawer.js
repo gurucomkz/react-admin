@@ -11,17 +11,29 @@ export default function QuickViewDrawer({object, ...props}) {
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState(null);
     
+    const block = (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        props.onClose.call(this, e);
+    };
+
     useEffect(() => {
+        var aborted = false;
         request(endpoint, null, 'GET')
         .then(
             (result) => {
+                if(aborted) return;
                 setLoading(false);
                 setData(result);
             },
             (error) => {
+                if(aborted) return;
                 props.onClose.call(this)
             },
-        )
+        );
+        return function cleanup() {
+            aborted = true;
+        }
     }, [ endpoint, props.onClose ]);
     
     const renderValue = (key) => {
@@ -57,11 +69,12 @@ export default function QuickViewDrawer({object, ...props}) {
         </>
     )
     return (
-        <Drawer {...props}>
+        <Drawer {...props} onClose={block}>
             <div style={{width: '30vw', padding: 10, display: 'flex', height: '100%', flexDirection: 'column'}}>
                 <Typography variant="h4">
                     {name} #{id}
                 </Typography>
+                {/* eslint-disable-next-line */}
                 {loading && <ReactLoader /> || renderDetails() }
             </div>
         </Drawer>

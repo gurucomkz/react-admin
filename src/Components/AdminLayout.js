@@ -1,8 +1,7 @@
 import React from 'react';
-// import Grid from '@material-ui/core/Grid';
 
 import AdminLeftMenu from './AdminLeftMenu';
-import { AppBar, Badge, Container, CssBaseline, IconButton, Toolbar } from '@material-ui/core';
+import { AppBar, Badge, CssBaseline, IconButton, Toolbar } from '@material-ui/core';
 import { useStyles } from '../Config/styles';
 
 import MenuIcon from '@material-ui/icons/Menu';
@@ -44,7 +43,7 @@ const AdminLayout = ({ children }) => {
 			</AppBar>
 			<AdminLeftMenu />
 			<main className={classes.content}>
-				<div className={classes.appBarSpacer} />
+				{/* <div className={classes.appBarSpacer} /> */}
 				<div className={classes.mainContainer}>
 					{children}
 				</div>

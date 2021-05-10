@@ -12,6 +12,7 @@ function Table({
     loading,
     className,
     manualPagination,
+    onRowClick,
     pageCount: controlledPageCount,
 }) {
     // Use the state and functions returned from useTable to build your UI
@@ -74,9 +75,13 @@ function Table({
             return a;
         }
         return page.map((row, i) => {
-            prepareRow(row)
+            prepareRow(row);
+            var auxRowProps = {};
+            if(onRowClick && ('function' === typeof onRowClick)) {
+                auxRowProps.onClick = () => onRowClick(row);
+            }
             return (
-                <tr {...row.getRowProps()}>
+                <tr {...row.getRowProps()} {...auxRowProps}>
                     {row.cells.map(cell => {
                         return (
                             <td

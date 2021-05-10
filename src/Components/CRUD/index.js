@@ -40,7 +40,7 @@ function CRUD({endpoint, ...props}) {
                 // setError(error);
             }
         )
-    },[]);
+    },[endpoint]);
     return (
         <Switch>
             {routes.map((route) => (
