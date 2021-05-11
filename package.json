@@ -13,11 +13,13 @@
     "@testing-library/user-event": "^7.1.2",
     "clsx": "^1.1.1",
     "react": "^16.13.1",
+    "react-breadcrumbs-dynamic": "^1.2.1",
     "react-dom": "^16.13.1",
     "react-loader-spinner": "^4.0.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "react-table": "^7.7.0",
+    "react-through": "^1.1.4",
     "styled-components": "^5.3.0"
   },
   "scripts": {

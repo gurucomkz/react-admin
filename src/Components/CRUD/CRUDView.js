@@ -1,10 +1,10 @@
-import { Button } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import CloseIcon from '@material-ui/icons/Close';
 
 import { request } from '../../Context/actions';
 import { withRouter } from 'react-router';
 import { useItemsRender } from './Utls/RenderItems';
+import { ViewHeaderButton } from '../ViewHeader';
+import { BreadcrumbsItem } from '../';
 
 function _CRUDView({schema, endpoint, path, match, ...props}) {
     const [loading, setLoading] = useState(false);
@@ -39,33 +39,25 @@ function _CRUDView({schema, endpoint, path, match, ...props}) {
             },
         )
     },
-    [schema, endpoint]);
+    [schema, endpoint, match.params.id]);
 
     return (
         <div style={{display: 'flex', flexDirection: 'column', height: '100%'}}>
-            <div className="header" style={{display: 'flex'}}>
-                <div style={{flex:1}}>
-                    Breadcrubms
-                </div>
-                <div>
-                    {schema.actions && schema.actions.map((action, pos) => (
-                        <Button 
-                            variant="outlined" 
-                            color="primary"
-                            size="small"
-                            key={'mi' + pos}
-                            onClick={(e) => handleActionClick(e, action)}>
-                            {action.name}
-                        </Button>
-                    ))}
-                    <Button>
-                        <CloseIcon fontSize="small" />
-                    </Button>
-                </div>
-            </div>
             <div style={{flex:1}}>
                 {schema.form && renderItems(schema.form)}
             </div>
+            {schema.actions && schema.actions.map((action) => (
+                <ViewHeaderButton 
+                    variant="outlined" 
+                    color="primary"
+                    size="small"
+                    actionkey={action.action}
+                    key={'mi' + action.action}
+                    onClick={(e) => handleActionClick(e, action)}>
+                    {action.name}
+                </ViewHeaderButton>
+            ))}
+            <BreadcrumbsItem to={match.url}>Edit #{match.params.id}</BreadcrumbsItem>
         </div>
     );
 }

@@ -5,6 +5,7 @@ import CRUDView from './CRUDView';
 import CRUDEdit from './CRUDEdit';
 import CRUDIndex from './CRUDIndex';
 import { request } from '../../Context/actions';
+import { BreadcrumbsItem  } from '../';
 
 function CRUD({endpoint, ...props}) {
     const [schema, setSchema] = useState({});
@@ -42,18 +43,21 @@ function CRUD({endpoint, ...props}) {
         )
     },[endpoint]);
     return (
-        <Switch>
-            {routes.map((route) => (
-                <Route
-                    key={route.path}
-                    path={route.path}
-                    exact
-                    render={(props) => (
-                        <route.component {...props} endpoint={endpoint} schema={schema} />
-                    )}
-                />
-            ))}
-        </Switch>
+        <>
+            <Switch>
+                {routes.map((route) => (
+                    <Route
+                        key={route.path}
+                        path={route.path}
+                        exact
+                        render={(props) => (
+                            <route.component {...props} endpoint={endpoint} schema={schema} />
+                        )}
+                    />
+                ))}
+            </Switch>
+            <BreadcrumbsItem to={'/' + endpoint}>{endpoint}</BreadcrumbsItem>
+        </>
     )
 }
 

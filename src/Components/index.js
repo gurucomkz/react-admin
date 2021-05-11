@@ -4,6 +4,7 @@ import AdminLeftMenu from './AdminLeftMenu';
 import AdminLayout from './AdminLayout';
 import CRUD from './CRUD';
 import QuickView from './QuickView';
+import { BreadcrumbsItem } from 'react-breadcrumbs-dynamic';
 
 export {
     AppRoute,
@@ -12,4 +13,5 @@ export {
     AdminLayout,
     CRUD,
     QuickView,
+    BreadcrumbsItem,
 }

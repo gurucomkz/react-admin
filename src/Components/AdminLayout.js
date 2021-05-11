@@ -10,6 +10,7 @@ import clsx from 'clsx';
 import { useDrawer } from '../Context';
 import AdminTopMenu from './AdminTopMenu';
 import AdminUserMenu from './AdminUserMenu';
+import { ViewHeader } from './ViewHeader';
 
 const AdminLayout = ({ children }) => {
 	const classes = useStyles();
@@ -44,6 +45,7 @@ const AdminLayout = ({ children }) => {
 			<AdminLeftMenu />
 			<main className={classes.content}>
 				{/* <div className={classes.appBarSpacer} /> */}
+                <ViewHeader />
 				<div className={classes.mainContainer}>
 					{children}
 				</div>
