@@ -33,7 +33,7 @@ export const MenuGroupProvider = ({ children }) => {
             if(!g.items) return false;
             for(var gi1 in g.items) {
                 const g1 = g.items[gi1];
-                if (g1.path && g1.path.indexOf(location.pathname) === 0) {
+                if (g1.path && location.pathname.indexOf(g1.path) === 0) {
                     dispatch(menuKey);
                     return true;
                 }
