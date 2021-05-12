@@ -8,7 +8,7 @@ import { BreadcrumbsItem } from '../';
 
 function _CRUDView({schema, endpoint, path, match, ...props}) {
     const [loading, setLoading] = useState(false);
-    const [record, setRecord] = useState({});
+    const [record, setRecord] = useState(null);
     const [changes, setChanges] = useState({});
 
     const handleActionClick = () => {}
