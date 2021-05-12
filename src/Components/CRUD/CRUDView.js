@@ -4,7 +4,7 @@ import { request } from '../../Context/actions';
 import { withRouter } from 'react-router';
 import { useItemsRender } from './Utls/RenderItems';
 import { ViewHeaderButton } from '../ViewHeader';
-import { BreadcrumbsItem } from '../';
+import { BreadcrumbsItem, ReactLoader } from '../';
 
 function _CRUDView({schema, endpoint, path, match, ...props}) {
     const [loading, setLoading] = useState(false);
@@ -41,6 +41,9 @@ function _CRUDView({schema, endpoint, path, match, ...props}) {
     },
     [schema, endpoint, match.params.id]);
 
+    if (!record) {
+        return <ReactLoader />
+    }
     return (
         <div style={{display: 'flex', flexDirection: 'column', height: '100%'}}>
             <div style={{flex:1}}>

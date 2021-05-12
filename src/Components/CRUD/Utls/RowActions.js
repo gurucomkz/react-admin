@@ -8,11 +8,14 @@ function RowActions({row, actions, ...props}) {
 
     const handleToggle = (event) => {
         event.preventDefault();
+        event.stopPropagation();
         setOpen((prevOpen) => !prevOpen);
         return false;
     };
     
     const handleClick = (event, action) => {
+        event.preventDefault();
+        event.stopPropagation();
         setOpen(false);
         // TODO
     };
