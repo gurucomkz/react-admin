@@ -3,10 +3,11 @@ import { CircularProgress, TextField } from "@material-ui/core";
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { request } from '../../../Context/actions';
 
-function SELECT({record, input, endpoint, onChange}) {
+function SELECT({record, input, endpoint, onChange, primaryRecord}) {
     const [open, setOpen] = useState(false);
     const [options, setOptions] = useState([]);
     const loading = open && options.length === 0;
+    const queryRecord = primaryRecord || record;
 
     const initialValue = useRef(record[input.field]);
     React.useEffect(() => {
@@ -16,7 +17,7 @@ function SELECT({record, input, endpoint, onChange}) {
             return undefined;
         }
 
-        request(endpoint + '/options/' + record.id + '/' + input.field)
+        request(endpoint + '/options/' + queryRecord.id + '/' + input.field)
         .then((result) => {
             if (active) {
                 setOptions(result);
@@ -26,7 +27,7 @@ function SELECT({record, input, endpoint, onChange}) {
         return () => {
             active = false;
         };
-    }, [loading, endpoint, record.id, input.field]);
+    }, [loading, endpoint, queryRecord.id, input.field]);
 
     useEffect(() => {
         if (!open) {

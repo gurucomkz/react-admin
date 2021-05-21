@@ -1,13 +1,15 @@
 import React from 'react';
-import { TEXT, TABSET, TEXTAREA, BOOLEAN, GROUP, SELECT } from '../Inputs';
+import { TEXT, TABSET, TEXTAREA, BOOLEAN, GROUP, SELECT, RELATION_ROWS } from '../Inputs';
 
-const renderItem = (input, k, record, onChange, endpoint) => {
+const renderItem = (input, k, record, onChange, endpoint, primaryRecord) => {
     const inputProps = {
-        input, record, onChange, endpoint
+        input, record, onChange, endpoint, primaryRecord
     };
     switch(input.type) {
+        case 'RELATION_ROWS': 
+            return <RELATION_ROWS key={'relation_' + k} {...inputProps} />
         case 'SELECT': 
-            return <SELECT key={'group_' + k} {...inputProps} />
+            return <SELECT key={'select_' + k} {...inputProps} />
         case 'GROUP': 
             return <GROUP key={'group_' + k} {...inputProps} />
         case 'BOOLEAN': 
