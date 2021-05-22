@@ -1,18 +1,19 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { request } from '../../Context/actions';
+import { useSnacksDispatch } from '../../Context/snacks';
 import Table from '../Table';
 import QuickView from '../QuickView';
 import RowActions from './Utls/RowActions';
 import { useHistory } from 'react-router';
 
 function CRUDIndex({schema, endpoint, props}) {
-    const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const [pageCount, setPageCount] = useState(0);
     const [columns, setColumns] = useState([]);
     const [items, setItems] = useState([]);
     const fetchIdRef = useRef(0);
     const history = useHistory();
+    const errorHandler = useSnacksDispatch();
 
     useEffect(() => {
         const {summary, actions} = schema;
@@ -49,7 +50,9 @@ function CRUDIndex({schema, endpoint, props}) {
             });
         }
         setColumns(_columns);
-    },[schema, endpoint]);
+    },
+    // eslint-disable-next-line
+    [schema, endpoint]);
 
     const loadRows = useCallback(({ pageSize, pageIndex }) => {
         setLoading(true);
@@ -73,10 +76,12 @@ function CRUDIndex({schema, endpoint, props}) {
                 if (fetchId === fetchIdRef.current) {
                     setLoading(false);
                 }
-                setError(error);
+                errorHandler(error);
             }
         )
-    }, [endpoint]);
+    }, 
+    // eslint-disable-next-line
+    [endpoint]);
 
     const onRowClick = (row) => {
         history.push(endpoint + '/view/' + row.original.id);

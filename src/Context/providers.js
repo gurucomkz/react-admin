@@ -4,6 +4,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from './auth';
 import { DrawerProvider } from './drawer';
 import { MenuGroupProvider } from './menugroups';
+import { SnacksProvider } from './snacks';
+import { SnackbarProvider } from 'notistack';
 
 function AppProviders({ children }) {
 	return (
@@ -12,7 +14,11 @@ function AppProviders({ children }) {
                 <AuthProvider>
                     <DrawerProvider>
                         <MenuGroupProvider>
-                            { children }
+                            <SnackbarProvider maxSnack={10}>
+                                <SnacksProvider>
+                                    { children }
+                                </SnacksProvider>
+                            </SnackbarProvider>
                         </MenuGroupProvider>
                     </DrawerProvider>
                 </AuthProvider>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { request } from '../../Context/actions';
+import { useSnacksDispatch } from '../../Context/snacks';
 import { withRouter } from 'react-router';
 import { useItemsRender } from './Utls/RenderItems';
 import { ViewHeaderButton } from '../ViewHeader';
@@ -12,6 +13,7 @@ function _CRUDView({schema, endpoint, path, match, ...props}) {
     const [record, setRecord] = useState(null);
     const [changes, setChanges] = useState({});
     const [haveChanges, setHaveChanges] = useState(false);
+    const errorHandler = useSnacksDispatch();
 
     const handleActionClick = () => {}
     const setValue = (field, value) => {
@@ -30,6 +32,7 @@ function _CRUDView({schema, endpoint, path, match, ...props}) {
     const renderItems = useItemsRender(record, setValue, endpoint);
 
     const onSaveClick = (e) => {
+        e.stopPropagation();
         setLoading(true);
         const saveURL = record.id ? endpoint + '/' + record.id : endpoint;
         const saveMethod = record.id ? 'PUT' : 'POST';
@@ -41,8 +44,10 @@ function _CRUDView({schema, endpoint, path, match, ...props}) {
             },
             (error) => {
                 setLoading(false);
+                errorHandler(error);
             },
-        )
+        );
+        return false;
     }
 
     useEffect(() => {
@@ -57,6 +62,7 @@ function _CRUDView({schema, endpoint, path, match, ...props}) {
             },
             (error) => {
                 setLoading(false);
+                errorHandler(error);
             },
         )
 
@@ -64,6 +70,7 @@ function _CRUDView({schema, endpoint, path, match, ...props}) {
             active = false;
         }
     },
+    // eslint-disable-next-line
     [schema, endpoint, match.params.id]);
 
     if (!record) {

@@ -25,7 +25,7 @@ export function request(subUrl, payload, method, plainResult) {
 		.then(async (response) => {
 			if(!response.ok) {
 				const txt = await response.text();
-				const err = txt ? txt.substr(0,100) : response.statusText;
+				const err = txt || response.statusText;
 				return Promise.reject(err);
 			}
 			return response;
