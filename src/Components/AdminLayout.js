@@ -11,6 +11,7 @@ import { useDrawer } from '../Context';
 import AdminTopMenu from './AdminTopMenu';
 import AdminUserMenu from './AdminUserMenu';
 import { ViewHeader } from './ViewHeader';
+import { ViewFooter } from './ViewFooter';
 
 const AdminLayout = ({ children }) => {
 	const classes = useStyles();
@@ -49,6 +50,7 @@ const AdminLayout = ({ children }) => {
 				<div className={classes.mainContainer}>
 					{children}
 				</div>
+                <ViewFooter />
 			</main>
 		</div>
 		

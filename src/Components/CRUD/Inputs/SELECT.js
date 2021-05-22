@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { CircularProgress, TextField } from "@material-ui/core";
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { request } from '../../../Context/actions';
@@ -10,14 +10,18 @@ function SELECT({record, input, endpoint, onChange, primaryRecord}) {
     const queryRecord = primaryRecord || record;
 
     const initialValue = useRef(record[input.field]);
-    React.useEffect(() => {
+    const queryUrl = endpoint + '/options/' + queryRecord.id + '/' + (input.parent ? input.parent.field + '/' : '') + input.field;
+
+    const onACChange = (e,v) => onChange(input.field, v ? v.value : null)
+    
+    useEffect(() => {
         let active = true;
 
         if (!loading) {
             return undefined;
         }
 
-        request(endpoint + '/options/' + queryRecord.id + '/' + input.field)
+        request(queryUrl)
         .then((result) => {
             if (active) {
                 setOptions(result);
@@ -27,7 +31,7 @@ function SELECT({record, input, endpoint, onChange, primaryRecord}) {
         return () => {
             active = false;
         };
-    }, [loading, endpoint, queryRecord.id, input.field]);
+    }, [loading, queryUrl]);
 
     useEffect(() => {
         if (!open) {
@@ -52,7 +56,7 @@ function SELECT({record, input, endpoint, onChange, primaryRecord}) {
             options={options}
             loading={loading}
             defaultValue={initialValue.current}
-            onChange={(e,v)=>onChange(input.field, v.value)}
+            onChange={onACChange}
             renderInput={(params) => (
                 <TextField
                     {...params}

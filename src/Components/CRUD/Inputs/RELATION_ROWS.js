@@ -4,7 +4,7 @@ import { renderItem } from '../Utls/RenderItems';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 function RELATION_ROWS({record, input, endpoint, onChange}) {
-    const items = record[input.field];
+    const items = (record || {})[input.field];
 
     const onRowInputChange = (idx, field, value) => {
         const editedSet = items.map((_,k) => {
@@ -40,17 +40,24 @@ function RELATION_ROWS({record, input, endpoint, onChange}) {
                 <Grid container spacing={1}>
                     {items.map((row, rowIdx) => (
                         <Grid container item xs={12} spacing={3} key={'row' + row.id}>
-                            {input.config.map((rowField, fIdx) => (
-                                <Grid item xs key={'cell' + fIdx}>
-                                    {renderItem(rowField, fIdx, row, (a,b) => onRowInputChange(rowIdx, a, b), endpoint, record)}
-                                </Grid>
-                            ))}
+                            {input.config.map((rowField, fIdx) => {
+                                const subField = {
+                                    ...rowField,
+                                    parent: input
+                                }
+                                return (
+                                    <Grid item xs key={'cell' + fIdx}>
+                                        {renderItem(subField, fIdx, row, (a,b) => onRowInputChange(rowIdx, a, b), endpoint, record)}
+                                    </Grid>
+                                )
+                            })}
                             <Grid item xs={1}>
                                 <Button 
                                     variant="outlined" 
                                     size="large"
+                                    style={{marginTop: 8, paddingTop: 9, paddingBottom: 9}}
                                     onClick={(e) => deleteRow(rowIdx)}>
-                                    <DeleteIcon />
+                                    <DeleteIcon fontSize="large" />
                                 </Button>
                             </Grid>
                         </Grid>

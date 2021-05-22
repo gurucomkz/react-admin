@@ -30,9 +30,11 @@ function CRUD({endpoint, ...props}) {
     ];
 
     useEffect(function(){
+        let active = true;
         request(endpoint + '/schema')
         .then(
             (result) => {
+                if(!active) return;
                 setSchema(result)
             },
             (error) => {
@@ -41,6 +43,9 @@ function CRUD({endpoint, ...props}) {
                 // setError(error);
             }
         )
+        return () => {
+            active = false;
+        }
     },[endpoint]);
     return (
         <>

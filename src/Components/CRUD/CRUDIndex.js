@@ -76,7 +76,7 @@ function CRUDIndex({schema, endpoint, props}) {
                 setError(error);
             }
         )
-    }, []);
+    }, [endpoint]);
 
     const onRowClick = (row) => {
         history.push(endpoint + '/view/' + row.original.id);
